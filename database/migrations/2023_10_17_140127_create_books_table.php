@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('ISBN');
+            $table->bigInteger('ISBN');
             $table->string("name", 25);
             $table->string("author", 50);
             $table->enum("type", ["sci-fi", "horror", "fantasy", "thriller"]);
