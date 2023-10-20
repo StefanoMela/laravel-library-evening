@@ -77,7 +77,7 @@ class BookController extends Controller
     {
         $data = $request->all();
         $book->update($data);
-        return redirect()->route("books.index", $book);
+        return redirect()->route("books.show", $book);
     }
 
 
