@@ -17,15 +17,14 @@ class BooksTableSeeder extends Seeder
     public function run(Faker $faker)
     {
 
-        for ($i=0; $i < 10; $i++) { 
+        for ($i = 0; $i < 10; $i++) {
             $newBook = new Book();
-            $newBook->ISBN= $faker->isbn13();
-            $newBook->name= $faker->word();
-            $newBook->author= $faker->words(2, true);
-            $newBook->type= $faker->randomElement(["sci-fi", "horror", "fantasy", "thriller"]);
-            $newBook->description= $faker->text(100);
+            $newBook->ISBN = $faker->isbn13();
+            $newBook->name = $faker->word();
+            $newBook->author = $faker->words(2, true);
+            $newBook->type = $faker->randomElement(["sci-fi", "horror", "fantasy", "thriller"]);
+            $newBook->description = $faker->text(100);
             $newBook->save();
         }
-        
     }
 }
