@@ -18,13 +18,13 @@ class BooksTableSeeder extends Seeder
     {
 
         for ($i=0; $i < 10; $i++) { 
-            $newBook = new Book();
-            $newBook->ISBN= $faker->numerify("#############");
-            $newBook->name= $faker->word();
-            $newBook->author= $faker->words(2, true);
-            $newBook->type= $faker->randomElement(["sci-fi", "horror", "fantasy", "thriller"]);
-            $newBook->description= $faker->text(100);
-            $newBook->save();
+            $Book = new Book();
+            $Book->ISBN= $faker->numerify("#############");
+            $Book->name= $faker->word();
+            $Book->author= $faker->words(2, true);
+            $Book->type= $faker->randomElement(["sci-fi", "horror", "fantasy", "thriller"]);
+            $Book->description= $faker->text(100);
+            $Book->save();
         }
         
     }
