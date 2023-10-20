@@ -4,15 +4,18 @@
 <section class="container mt-5">
 
   @forelse($books as $book)
-    <p>
-      <strong>Name</strong>: {{ $book->name }} <br>
-      <strong>Author</strong>: {{ $book->author }} <br>
-      <strong>Genere</strong>: {{ $book->type }}
-      <strong>Description</strong>: {{ $book->description }} <br>
-    </p>
-    <hr>
-  @empty
-    <h2>Non ci sono risultati</h2>
-  @endforelse
+  <div class="card my-4">
+    <div class="card-body text-center">
+      <h5 class="card-title">{{ $book->title }}</h5>
+      <p class="card-text">{{ $book->author }}</p>
+      <p class="card-text">{{ $book->type }}</p>
+      <p class="card-text">{{ $book->description }}</p>
+      <a class="btn btn-primary" href="{{route('books.index')}}">Torna alla home page</a>
+    </div>
+  </div>
+</section>
+@empty
+<h2>Non ci sono risultati</h2>
+@endforelse
 </section>
 @endsection
