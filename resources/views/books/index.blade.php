@@ -10,8 +10,9 @@
       <p class="card-text">{{ $book->author }}</p>
       <p class="card-text">{{ $book->type }}</p>
       <p class="card-text">{{ $book->description }}</p>
-      <a class="btn btn-primary" href="{{route('books.show')}}">Torna alla home page</a>
-    </div>
+      <a class="btn btn-primary" href="{{route('books.show', $book)}}">Dettagli</a>
+      <a class="btn btn-warning" href="{{route('books.edit', $book)}}">Modifica</a>
+  </div>
   </div>
 </section>
 @empty
