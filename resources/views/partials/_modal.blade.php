@@ -9,11 +9,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Sicuro di voler eliminare il libro {{ $book->title }} ?
+                Sicuro di voler eliminare il libro {{ $book->name }} ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                <form action="{{route('books.destroy', $book)}}" method="POST" class="my-1">
+                <form action="{{route('admin.books.destroy', $book)}}" method="POST" class="my-1">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger">Elimina</button>
