@@ -2,11 +2,11 @@
 
 @section('main-content')
 <div class="container mt-5">
-   <a href="{{route('books.index')}}" class="btn btn-success mb-2">Torna indietro</a> 
+   <a href="{{route('admin.books.index')}}" class="btn btn-success mb-2">Torna indietro</a> 
 
   <h1 class="my-5">Crea Libro</h1>
   
- <form action="{{ route('books.store') }}" method="POST" class="row g-3" > 
+ <form action="{{ route('admin.books.store') }}" method="POST" class="row g-3" > 
   @csrf
 
 

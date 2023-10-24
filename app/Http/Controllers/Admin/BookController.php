@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -15,10 +17,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        $title = 'Evening Laravel Books';
-        $books = Book::all();
-        return view('books.index', compact('title', 'books'));
-    }
+        $title = 'Evening Laravel Books';        
+        $books = Book::orderby('id','desc')->paginate(15); // paginazione con ordine discdente in base all' ID
+        return view("admin.books.index", compact("title","books"));
+    }    
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +29,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        return view('admin.books.create');
     }
 
     /**
@@ -36,15 +38,20 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * *@return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $book = new Book();
         $book->fill($data);
         $book->save();
 
-        return redirect()->route('books.show', $book);
+
+        return redirect()
+        ->route('admin.books.show', $book)
+        ->with('message_type', 'success')
+        ->with('message', 'Libro creato con successo');
     }
+    
 
     /**
      * Display the specified resource.
@@ -54,7 +61,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show', compact('book'));
+        return view('admin.books.show', compact('book'));
     }
 
     /**
@@ -65,7 +72,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        return view('admin.books.edit', compact('book'));
     }
 
     /**
@@ -75,23 +82,31 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      ** @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $book->update($data);
-        return redirect()->route('books.show', $book);
+        return redirect()
+        ->route('admin.books.show', $book)
+        ->with('message_type', 'success')
+        ->with('message', 'Libro creato con successo');
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Book $book
+    //  * @return \Illuminate\Http\Response
      */
     public function destroy(Book $book)
     {
-        $book->delete();
-        return redirect()->route('books.index');
+        
+            $book->delete();
+            return redirect()
+            ->route('admin.books.index')
+            ->with('message_type', 'danger')
+            ->with('message', 'Libro eliminato con successo');
+        
     }
 }
