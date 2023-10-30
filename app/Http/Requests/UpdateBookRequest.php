@@ -28,6 +28,8 @@ class UpdateBookRequest extends FormRequest
             'name'=>'required|string|max:25',
             'author'=>'required|string|max:50',
             'description'=>'nullable|string|',
+            'genre_id'=>'nullable|exists:genres,id',
+
         ];
     }
 
@@ -47,6 +49,8 @@ class UpdateBookRequest extends FormRequest
             'author.required'=> 'L\'autore non deve essere vuoto',
             'author.string'=> 'L\'autore deve essere una stringa',
             'author.max'=> 'L\'autore deve essere al massimo di 50 caratteri',
+            'genre_id.exists'=> 'Il genere deve essere inserito'
+
 
         ] ;
     }

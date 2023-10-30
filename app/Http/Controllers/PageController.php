@@ -9,6 +9,6 @@ class PageController extends Controller
   public function index()
   {
     $title = "Homepage";
-    return view('home', compact('title'));
+    return view ('home', compact('title'));
   }
 }

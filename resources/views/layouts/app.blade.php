@@ -46,6 +46,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'admin.books.index' ? 'fw-bold' : '' }}" href="{{ route('admin.books.index') }}"
+                              aria-current="page">Elenco Libri<span class="visually-hidden">(current)</span></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link  {{ Route::currentRouteName() == 'admin.books.create' ? 'fw-bold' : '' }}" href="{{route('admin.books.create')}}">Crea Libro</a>
+                          </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

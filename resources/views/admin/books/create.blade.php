@@ -20,11 +20,11 @@
       <input type="text" id="author" name="author" class="form-control">
     </div>
     <div class="col-3">
-      <label for="type" class="form-label">Type</label>
-      <select id="type" name="type" class="form-select">
-        <option value="sci-fi">sci_fi</option>
-        <option value="horror">horror</option>
-        <option value="fantasy">fantasy</option>
+      <label for="genre_id" class="form-label">Genere</label>
+      <select id="genre_id" name="genre_id" class="form-select">
+      @foreach ($genres as $genre)
+      <option value="{{$genre->id}}" @if (old('$genre_id') == $genre->id ) selected @endif>{{$genre->name}}</option>
+      @endforeach
       </select>
     </div>
     <div class="col-3">

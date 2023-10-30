@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -17,9 +18,12 @@ class BookController extends Controller
      */
     public function index()
     {
+        $genres=Genre::all();
+
         $title = 'Evening Laravel Books';        
         $books = Book::orderby('id','desc')->paginate(15); // paginazione con ordine discdente in base all' ID
-        return view("admin.books.index", compact("title","books"));
+        
+        return view("admin.books.index", compact("title","books","genres"));
     }    
 
     /**
@@ -29,7 +33,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create');
+        $genres = Genre::all();
+        return view('admin.books.create', compact('genres'));
     }
 
     /**
@@ -72,7 +77,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('admin.books.edit', compact('book'));
+        $genres = Genre::all();
+
+        return view('admin.books.edit', compact('book','genres'));
     }
 
     /**
