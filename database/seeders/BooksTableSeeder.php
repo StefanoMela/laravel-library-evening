@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Models\Genre;
 use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,10 +15,12 @@ class BooksTableSeeder extends Seeder
      * @return void
      */
     public function run(Faker $faker)
-    {
+    {        $genres_id=Genre::all()->pluck('id');
+
 
         for ($i = 0; $i < 10; $i++) {
             $newBook = new Book();
+            $newBook->genre_id = $faker ->randomElement($genres_id);
             $newBook->ISBN = $faker->isbn13();
             $newBook->name = $faker->word();
             $newBook->author = $faker->words(2, true);
