@@ -7,13 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
       <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-          <a class="nav-link {{ Route::currentRouteName() == 'books.index' ? 'fw-bold' : '' }}" href="{{ route('books.index') }}"
-            aria-current="page">Home Libri<span class="visually-hidden">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link  {{ Route::currentRouteName() == 'books.create' ? 'fw-bold' : '' }}" href="{{route('books.create')}}">Crea Libro</a>
-        </li>
+    
       </ul>
       <form class="d-flex my-2 my-lg-0">
         <input class="form-control me-sm-2" type="text" placeholder="Search">

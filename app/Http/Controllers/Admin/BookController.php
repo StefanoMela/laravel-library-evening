@@ -18,10 +18,12 @@ class BookController extends Controller
      */
     public function index()
     {
+        $genres=Genre::all();
 
         $title = 'Evening Laravel Books';        
         $books = Book::orderby('id','desc')->paginate(15); // paginazione con ordine discdente in base all' ID
-        return view("admin.books.index", compact("title","books"));
+        
+        return view("admin.books.index", compact("title","books","genres"));
     }    
 
     /**
