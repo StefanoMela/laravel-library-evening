@@ -84,8 +84,9 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $genres = Genre::all();
-
-        return view('admin.books.edit', compact('book','genres'));
+        $tags = Tag::orderBy('label')->get();
+        $book_tag = $book->tags->pluck('id')->toArray();
+        return view('admin.books.edit', compact('book','genres', 'tags','book_tag'));
     }
 
     /**
@@ -99,6 +100,12 @@ class BookController extends Controller
     {
         $data = $request->validated();
         $book->update($data);
+
+        if(Arr::exists($data, "tags"))
+            $book->tags()->sync($data["tags"]);
+        else
+            $book->tags()->detach();
+
         return redirect()
         ->route('admin.books.show', $book)
         ->with('message_type', 'success')
