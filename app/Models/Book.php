@@ -23,4 +23,9 @@ class Book extends Model
     // public function getGenre() {
     //     return $this->genre->name;
     // }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
+    }
+
 }
