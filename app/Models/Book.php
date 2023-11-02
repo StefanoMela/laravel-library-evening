@@ -28,4 +28,14 @@ class Book extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function getTagBadges(){
+        $_tags = "";
+        if ($this->tags) {
+            foreach($this->tags as $tag){
+                $_tags .= "<span class='badge mx-1' style='background-color:{$tag->color}'>{$tag->label}</span>";
+            }
+        }
+        return $_tags;
+    }
+
 }
