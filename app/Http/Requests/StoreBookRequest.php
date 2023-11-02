@@ -29,6 +29,7 @@ class StoreBookRequest extends FormRequest
             'author'=>'required|string|max:50',
             'description'=>'nullable|string|',
             'genre_id'=>'nullable|exists:genres,id',
+            'tags' => ['nullable', 'exists:tags,id'],
 
         ];
     }
@@ -50,7 +51,10 @@ class StoreBookRequest extends FormRequest
             'author.string'=> 'L\'autore deve essere una stringa',
             'author.max'=> 'L\'autore deve essere al massimo di 50 caratteri',
 
-            'genre_id.exists'=> 'Il genere deve essere inserito'
+            'genre_id.exists'=> 'Il genere deve essere inserito',
+
+            'tags.exists' => 'I tags inseriti non sono validi',
+
 
         ] ;
     }

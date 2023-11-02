@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -34,7 +35,8 @@ class BookController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('admin.books.create', compact('genres'));
+        $tags = Tag::orderBy('label')->get();
+        return view('admin.books.create', compact('genres', 'tags'));
     }
 
     /**
@@ -48,6 +50,9 @@ class BookController extends Controller
         $data = $request->validated();
         $book = new Book();
         $book->fill($data);
+
+        if($request->hasFile('tags')) $book->technologies()->attach($data["tags"]);
+
         $book->save();
 
 
