@@ -52,10 +52,10 @@ class BookController extends Controller
         $book = new Book();
         $book->fill($data);
 
-        if(Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
-
+        
         $book->save();
-
+        
+        if(Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
 
         return redirect()
         ->route('admin.books.show', $book)
