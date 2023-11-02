@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('ISBN');
             $table->string("name", 25);
             $table->string("author", 50);
-            $table->enum("type", ["sci-fi", "horror", "fantasy", "thriller"]);
-            $table->text("description");
+            $table->enum("type", ["sci-fi", "horror", "fantasy", "thriller"])->nullable();
+            $table->text("description")->nullable();
             $table->timestamps();
         });
     }
