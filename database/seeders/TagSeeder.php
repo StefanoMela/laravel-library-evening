@@ -16,7 +16,7 @@ class TagSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $_tags = ["Copertina rigida", "E-book", "Tascabile", "Audio"];
+        $_tags = ["Copertina rigida", "E-book", "Tascabile", "Audio Libro"];
 
         foreach($_tags as $_tag) {
         $tag = new Tag();
