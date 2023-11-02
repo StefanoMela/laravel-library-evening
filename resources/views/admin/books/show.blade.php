@@ -6,6 +6,7 @@
         <div class="card-body text-center">
             <h5 class="card-title">Titolo: {{ $book->name }}</h5>
             <p class="card-text">{{ $book->genre->name }}</p>
+            <p>{!!$book->getTagBadges()!!}</p>
             <p class="card-text"><strong>Autore:</strong> {{ $book->author }}</p>
             <p class="card-text"><strong>Descrizione:</strong> {{ $book->description }}</p>
             <a class="btn btn-primary" href="{{route('admin.books.index')}}">Torna alla home page</a>
