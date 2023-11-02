@@ -121,12 +121,12 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        
-            $book->delete();
-            return redirect()
-            ->route('admin.books.index')
-            ->with('message_type', 'danger')
-            ->with('message', 'Libro eliminato con successo');
+        $book->tags()->detach();
+        $book->delete();
+        return redirect()
+        ->route('admin.books.index')
+        ->with('message_type', 'danger')
+        ->with('message', 'Libro eliminato con successo');
         
     }
 }
