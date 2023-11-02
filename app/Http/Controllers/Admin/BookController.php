@@ -9,6 +9,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class BookController extends Controller
 {
@@ -51,7 +52,7 @@ class BookController extends Controller
         $book = new Book();
         $book->fill($data);
 
-        if($request->hasFile('tags')) $book->technologies()->attach($data["tags"]);
+        if(Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
 
         $book->save();
 

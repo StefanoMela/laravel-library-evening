@@ -30,11 +30,16 @@ class Book extends Model
 
     public function getTagBadges(){
         $_tags = "";
-        if ($this->tags) {
+
+        if($this->tags->toArray()){
             foreach($this->tags as $tag){
                 $_tags .= "<span class='badge mx-1' style='background-color:{$tag->color}'>{$tag->label}</span>";
-            }
+            }  
+        } else {
+            $_tags .= "Senza tags";
         }
+
+
         return $_tags;
     }
 

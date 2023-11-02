@@ -7,9 +7,9 @@
     @foreach ($books as $book)
     <div class="card my-4 h-100">
       <div class="card-body text-center">
-        <h5 class="card-title">Titolo: {{ $book->name }}</h5>
-        <p class="card-text">{{ $book->genre->name }}</p>
-        <p>{!!$book->getTagBadges()!!}</p>
+        <h5 class="card-title"><strong>Titolo:</strong> {{ $book->name }}</h5>
+        <p class="card-text"><strong>Genere:</strong> {{ $book->genre->name }}</p>
+        <p><strong>Tags: </strong>{!!$book->getTagBadges()!!}</p>
         {{-- <p class="card-text"><strong>Genere:</strong> {{ $book->getGenre() }}</p> --}}
         <p class="card-text"><strong>Autore:</strong> {{ $book->author }}</p>
         {{-- <p class="card-text">{{ $book->type }}</p> --}}
