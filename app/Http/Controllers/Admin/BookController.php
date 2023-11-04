@@ -7,7 +7,9 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class BookController extends Controller
 {
@@ -34,7 +36,8 @@ class BookController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('admin.books.create', compact('genres'));
+        $tags = Tag::orderBy('label')->get();
+        return view('admin.books.create', compact('genres', 'tags'));
     }
 
     /**
@@ -48,8 +51,11 @@ class BookController extends Controller
         $data = $request->validated();
         $book = new Book();
         $book->fill($data);
-        $book->save();
 
+        
+        $book->save();
+        
+        if(Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
 
         return redirect()
         ->route('admin.books.show', $book)
@@ -78,8 +84,9 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $genres = Genre::all();
-
-        return view('admin.books.edit', compact('book','genres'));
+        $tags = Tag::orderBy('label')->get();
+        $book_tag = $book->tags->pluck('id')->toArray();
+        return view('admin.books.edit', compact('book','genres', 'tags','book_tag'));
     }
 
     /**
@@ -93,6 +100,12 @@ class BookController extends Controller
     {
         $data = $request->validated();
         $book->update($data);
+
+        if(Arr::exists($data, "tags"))
+            $book->tags()->sync($data["tags"]);
+        else
+            $book->tags()->detach();
+
         return redirect()
         ->route('admin.books.show', $book)
         ->with('message_type', 'success')
@@ -108,12 +121,12 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        
-            $book->delete();
-            return redirect()
-            ->route('admin.books.index')
-            ->with('message_type', 'danger')
-            ->with('message', 'Libro eliminato con successo');
+        $book->tags()->detach();
+        $book->delete();
+        return redirect()
+        ->route('admin.books.index')
+        ->with('message_type', 'danger')
+        ->with('message', 'Libro eliminato con successo');
         
     }
 }

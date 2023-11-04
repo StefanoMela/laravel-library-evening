@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('book_tag', function (Blueprint $table) {
             $table->id();
-            $table->string('ISBN');
-            $table->string("name", 25);
-            $table->string("author", 50);
-            $table->enum("type", ["sci-fi", "horror", "fantasy", "thriller"])->nullable();
-            $table->text("description")->nullable();
+
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+
+            $table->foreignId('tag_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('book_tag');
     }
 };
