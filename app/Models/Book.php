@@ -18,7 +18,8 @@ class Book extends Model
         "author",
         "type",
         "description",
-        "genre_id"
+        "genre_id",
+        'book_cover'
     ] ;
     // public function getGenre() {
     //     return $this->genre->name;

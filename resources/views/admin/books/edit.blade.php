@@ -6,7 +6,7 @@
 
   <h1 class="my-5">Modifica Libro</h1>
   
-  <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3" > 
+  <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3" enctype="multipart/form-data" > 
     @csrf
 
     @method('PUT')
@@ -65,6 +65,18 @@
         <div class="invalid-feedback">{{ $message }}</div>
       @enderror
     </div>
+
+    <div class="col-12">
+      <div class="input-group w-50">
+          <input type="file" name="book_cover" id="book_cover" value="{{old('book_cover')}}" class="form-control @error('book_cover') is-invalid @enderror">
+          <label class="input-group-text" for="book_cover">Upload</label>     
+      </div>
+      @error('book_cover')
+      <div class="invalid-feedback">
+          {{$message}}
+      </div>
+      @enderror
+  </div>
 
     <div class="col-12">                            
       <label class="form-label"><strong>Tags</strong></label>

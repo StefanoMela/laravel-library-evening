@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -52,7 +53,9 @@ class BookController extends Controller
         $book = new Book();
         $book->fill($data);
 
-        
+        if ($request->hasFile('book_cover')) {
+            $book->book_cover = Storage::put('uploads', $data['book_cover']);
+            }        
         $book->save();
         
         if(Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
@@ -99,7 +102,17 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book)
     {
         $data = $request->validated();
-        $book->update($data);
+
+        $book->fill($data);
+
+        if ($request->hasFile('book_cover')) {
+            if ($book->book_cover) {
+                Storage::delete($book->book_cover);
+            }
+            $book->book_cover = Storage::put('uploads', $data['book_cover']);
+        };
+
+        $book->save();
 
         if(Arr::exists($data, "tags"))
             $book->tags()->sync($data["tags"]);
