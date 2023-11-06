@@ -30,6 +30,8 @@ class StoreBookRequest extends FormRequest
             'description'=>'nullable|string|',
             'genre_id'=>'nullable|exists:genres,id',
             'tags' => ['nullable', 'exists:tags,id'],
+            'book_cover'=> 'nullable|image|max:1500',
+
 
         ];
     }
@@ -54,6 +56,9 @@ class StoreBookRequest extends FormRequest
             'genre_id.exists'=> 'Il genere deve essere inserito',
 
             'tags.exists' => 'I tags inseriti non sono validi',
+
+            'image.image'=>'Il file caricato deve essere una immagine',
+            'image.max'=>'L\'immagine deve essere al massimo 1500kb',
 
 
         ] ;
