@@ -21,13 +21,13 @@ class BookController extends Controller
      */
     public function index()
     {
-        $genres=Genre::all();
+        $genres = Genre::all();
 
-        $title = 'Evening Laravel Books';        
-        $books = Book::orderby('id','desc')->paginate(15); // paginazione con ordine discdente in base all' ID
-        
-        return view("admin.books.index", compact("title","books","genres"));
-    }    
+        $title = 'Evening Laravel Books';
+        $books = Book::orderby('id', 'desc')->paginate(15); // paginazione con ordine discdente in base all' ID
+
+        return view("admin.books.index", compact("title", "books", "genres"));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -55,17 +55,18 @@ class BookController extends Controller
 
         if ($request->hasFile('book_cover')) {
             $book->book_cover = Storage::put('uploads', $data['book_cover']);
-            }        
+        }
+
         $book->save();
-        
-        if(Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
+
+        if (Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
 
         return redirect()
-        ->route('admin.books.show', $book)
-        ->with('message_type', 'success')
-        ->with('message', 'Libro creato con successo');
+            ->route('admin.books.show', $book)
+            ->with('message_type', 'success')
+            ->with('message', 'Libro creato con successo');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -89,7 +90,7 @@ class BookController extends Controller
         $genres = Genre::all();
         $tags = Tag::orderBy('label')->get();
         $book_tag = $book->tags->pluck('id')->toArray();
-        return view('admin.books.edit', compact('book','genres', 'tags','book_tag'));
+        return view('admin.books.edit', compact('book', 'genres', 'tags', 'book_tag'));
     }
 
     /**
@@ -103,26 +104,25 @@ class BookController extends Controller
     {
         $data = $request->validated();
 
-        $book->fill($data);
-
         if ($request->hasFile('book_cover')) {
             if ($book->book_cover) {
                 Storage::delete($book->book_cover);
             }
-            $book->book_cover = Storage::put('uploads', $data['book_cover']);
+            $data['book_cover'] = Storage::put('uploads', $data['book_cover']);
         };
 
+        $book->fill($data);
         $book->save();
 
-        if(Arr::exists($data, "tags"))
+        if (Arr::exists($data, "tags"))
             $book->tags()->sync($data["tags"]);
         else
             $book->tags()->detach();
 
         return redirect()
-        ->route('admin.books.show', $book)
-        ->with('message_type', 'success')
-        ->with('message', 'Libro creato con successo');
+            ->route('admin.books.show', $book)
+            ->with('message_type', 'success')
+            ->with('message', 'Libro creato con successo');
     }
 
 
@@ -137,9 +137,8 @@ class BookController extends Controller
         $book->tags()->detach();
         $book->delete();
         return redirect()
-        ->route('admin.books.index')
-        ->with('message_type', 'danger')
-        ->with('message', 'Libro eliminato con successo');
-        
+            ->route('admin.books.index')
+            ->with('message_type', 'danger')
+            ->with('message', 'Libro eliminato con successo');
     }
 }
