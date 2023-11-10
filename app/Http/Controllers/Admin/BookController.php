@@ -51,12 +51,12 @@ class BookController extends Controller
     {
         $data = $request->validated();
         $book = new Book();
-        $book->fill($data);
-
+        
         if ($request->hasFile('book_cover')) {
-            $book->book_cover = Storage::put('uploads', $data['book_cover']);
+            $data['book_cover'] = Storage::put('uploads', $data['book_cover']);
         }
-
+        
+        $book->fill($data);
         $book->save();
 
         if (Arr::exists($data, "tags")) $book->tags()->attach($data["tags"]);
